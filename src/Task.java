@@ -5,19 +5,25 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Stream;
 
+/**
+ * Technical task for DBO Soft
+ * from Aleksandr Mushtat
+ */
+
+
 public class Task {
 
     public static SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 
     public static void main(String[] args) {
         Path path = Path.of("src/input.txt");
-        List<String> list = new ArrayList<>();
+        List<String> fileLines = new ArrayList<>();
         Map<String, Integer> names = new HashMap<>();
         Map<Integer, Long> dates = new HashMap<>();
         Map<Integer, Integer> proceeds = new HashMap<>();
 
-        try (Stream<String> lines = Files.lines(path);) {
-            lines.forEach(list::add);
+        try (Stream<String> lines = Files.lines(path);) { //adding all lines to ArrayList from "input.txt"
+            lines.forEach(fileLines::add);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -25,12 +31,11 @@ public class Task {
 
         int i = 0;
 
-        for (String next : list) {
+        for (String next : fileLines) {
 
             String[] features = next.split("#");
 
             String productName = features[0];
-            String date = features[1];
             int proceed = Integer.parseInt(features[2]);
 
             String[] values = features[1].split("\\.");
@@ -70,9 +75,11 @@ public class Task {
 
         long resultDate = dates.get(keyProceed);
         Date time = new Date(resultDate);
-        String resultName = new String("");
+        String resultName = "";
+
         for (Map.Entry<String, Integer> next : names.entrySet()) {
-            if (next.getValue() == keyProceed) resultName = next.getKey(); break;
+            if (next.getValue() == keyProceed) resultName = next.getKey();
+            break;
         }
 
         System.out.println(resultName + " " + formatter.format(time) + " " + maxProceed);
