@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 
 public class Task {
 
+
     public static SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 
     public static void main(String[] args) {
